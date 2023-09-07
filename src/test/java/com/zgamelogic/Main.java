@@ -2,9 +2,10 @@ package com.zgamelogic;
 
 import com.zgamelogic.boot.JDASpringApplication;
 import net.dv8tion.jda.api.JDABuilder;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = {"com.zgamelogic.test"})
+@SpringBootApplication(scanBasePackages = {"com.zgamelogic.test", "com.zgamelogic.testdata"})
 public class Main {
     public static void main(String[] args) {
 

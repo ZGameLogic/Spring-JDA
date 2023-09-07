@@ -1,6 +1,5 @@
 package com.zgamelogic.boot;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -12,12 +11,10 @@ import org.springframework.core.io.ResourceLoader;
 
 import java.util.Set;
 
-@Getter
 @Slf4j
 public class JDASpringApplication extends SpringApplication {
 
-    private JDABuilder botBuilder;
-    private JDA bot;
+    private final JDABuilder botBuilder;
 
     /**
      * Create a new {@link SpringApplication} instance. The application context will load
@@ -46,17 +43,17 @@ public class JDASpringApplication extends SpringApplication {
     public ConfigurableApplicationContext run(String... args) {
         ConfigurableApplicationContext cac = super.run(args);
         log.info("Initializing JDA Bot");
-        botBuilder.addEventListeners(cac.getBeansOfType(ListenerAdapter.class).values().iterator().next());
-//        LinkedList<ListenerAdapter> listeners = new LinkedList<>(cac.getBeansOfType(ListenerAdapter.class).values());
-//
-//        botBuilder.addEventListeners(listeners);
-        bot = botBuilder.build();
+
+        cac.getBeansOfType(ListenerAdapter.class).values().forEach(
+                botBuilder::addEventListeners
+        );
 
         try {
+            JDA bot = botBuilder.build();
             bot.awaitReady();
-        } catch (InterruptedException e) {
-            log.error("Unable to launch bot");
+        } catch (Exception e) {
             cac.close();
+            log.error("Unable to launch bot", e);
         }
         return cac;
     }
