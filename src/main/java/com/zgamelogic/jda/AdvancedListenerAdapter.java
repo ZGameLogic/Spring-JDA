@@ -20,7 +20,7 @@ import java.util.LinkedList;
 @Slf4j
 public abstract class AdvancedListenerAdapter extends ListenerAdapter {
 
-    private HashMap<Class, LinkedList<Method>> methodMap;
+    private final HashMap<Class, LinkedList<Method>> methodMap;
 
     public AdvancedListenerAdapter(){
         methodMap = new HashMap<>();

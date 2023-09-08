@@ -8,11 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(scanBasePackages = {"com.zgamelogic.test", "com.zgamelogic.testdata"})
 public class Main {
     public static void main(String[] args) {
-
         JDABuilder bot = JDABuilder.createDefault("NzM4ODUxMzM2NTY0NzY4ODY4.GtaXjD.vnf3Rnqu269cjLxENIY6uPOq6ismujKMLnYn8s");
-
         JDASpringApplication app = new JDASpringApplication(bot, Main.class);
         app.run();
-
     }
 }
