@@ -34,9 +34,13 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
     }
 
     private void handleEvent(EventVerify verify, Event event, Object annotation){
-        methodMap.get(annotation).forEach(method -> {
+        methodMap.get(annotation.getClass()).forEach(method -> {
             if(verify.verify(annotation, event)){
-
+                try {
+                    // TODO call method with event
+                } catch(Exception e) {
+                    log.error("Unable to auto run method: " + method.getName(), e);
+                }
             }
         });
     }
@@ -47,6 +51,7 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
             try {
                 SlashResponse a = (SlashResponse) givenAnnotation;
                 SlashCommandInteractionEvent e = event;
+                // TODO finish verify
                 return true;
             } catch (Exception e) {
                 return false;
