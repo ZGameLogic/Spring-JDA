@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.EntitySelectInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.StringSelectInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.Interaction;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -37,12 +38,17 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
 
     private void handleEvent(EventVerify verify, Event event, Object annotation){
         methodMap.get(annotation.getClass()).forEach(method -> {
-            if(verify.verify(annotation, event)){
-                try {
-                    // TODO call method with event
-                } catch(Exception e) {
-                    log.error("Unable to auto run method: " + method.getName(), e);
+            try {
+                if ((method.getAnnotationsByType(NoBot.class).length > 0 && !((Interaction) event).getUser().isBot())
+                        && verify.verify(annotation, event)) {
+                    try {
+                        method.invoke(this, event);
+                    } catch (Exception e) {
+                        log.error("Unable to auto run method: " + method.getName(), e);
+                    }
                 }
+            } catch (Exception e1){
+                log.error("Probably some casting going bad", e1);
             }
         });
     }
