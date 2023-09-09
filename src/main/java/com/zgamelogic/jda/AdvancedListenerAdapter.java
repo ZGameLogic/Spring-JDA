@@ -1,5 +1,6 @@
 package com.zgamelogic.jda;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
@@ -20,6 +21,7 @@ import java.util.LinkedList;
 import static com.zgamelogic.jda.Annotations.*;
 
 @Slf4j
+@Getter
 public abstract class AdvancedListenerAdapter extends ListenerAdapter {
 
     private final HashMap<Class, LinkedList<Method>> methodMap;
@@ -33,6 +35,7 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
         log.info("Registering annotated methods for class: " + this.getClass().getName());
         for(Method method: this.getClass().getDeclaredMethods()){
             log.info("\t\t" + method.getName());
+            // TODO add methods to the map
         }
     }
 
