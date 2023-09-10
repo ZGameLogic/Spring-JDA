@@ -94,36 +94,106 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
 
     @Override
     public void onUserContextInteraction(UserContextInteractionEvent event) {
-
+        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> {
+            try {
+                UserInteractionResponse a = (UserInteractionResponse) givenAnnotation;
+                UserContextInteractionEvent e = (UserContextInteractionEvent) givenEvent;
+                // TODO implement
+                return false;
+            } catch (Exception e) {
+                return false;
+            }
+        };
+        handleEvent(verify, event, UserInteractionResponse.class);
     }
 
     @Override
     public void onMessageContextInteraction(MessageContextInteractionEvent event) {
-
+        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> {
+            try {
+                MessageInteractionResponse a = (MessageInteractionResponse) givenAnnotation;
+                MessageContextInteractionEvent e = (MessageContextInteractionEvent) givenEvent;
+                // TODO implement
+                return false;
+            } catch (Exception e) {
+                return false;
+            }
+        };
+        handleEvent(verify, event, MessageInteractionResponse.class);
     }
 
     @Override
     public void onButtonInteraction(ButtonInteractionEvent event) {
-
+        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> {
+            try {
+                ButtonResponse a = (ButtonResponse) givenAnnotation;
+                ButtonInteractionEvent e = (ButtonInteractionEvent) givenEvent;
+                // TODO implement
+                return false;
+            } catch (Exception e) {
+                return false;
+            }
+        };
+        handleEvent(verify, event, ButtonResponse.class);
     }
 
     @Override
     public void onCommandAutoCompleteInteraction(CommandAutoCompleteInteractionEvent event) {
-
+        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> {
+            try {
+                AutoCompleteResponse a = (AutoCompleteResponse) givenAnnotation;
+                CommandAutoCompleteInteractionEvent e = (CommandAutoCompleteInteractionEvent) givenEvent;
+                // TODO implement
+                return false;
+            } catch (Exception e) {
+                return false;
+            }
+        };
+        handleEvent(verify, event, AutoCompleteResponse.class);
     }
 
     @Override
     public void onModalInteraction(ModalInteractionEvent event) {
-
+        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> {
+            try {
+                ModalResponse a = (ModalResponse) givenAnnotation;
+                ModalInteractionEvent e = (ModalInteractionEvent) givenEvent;
+                // TODO implement
+                return false;
+            } catch (Exception e) {
+                return false;
+            }
+        };
+        handleEvent(verify, event, ModalResponse.class);
     }
 
     @Override
     public void onStringSelectInteraction(StringSelectInteractionEvent event) {
-
+        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> {
+            try {
+                StringSelectionResponse a = (StringSelectionResponse) givenAnnotation;
+                StringSelectInteractionEvent e = (StringSelectInteractionEvent) givenEvent;
+                // TODO implement
+                return false;
+            } catch (Exception e) {
+                return false;
+            }
+        };
+        handleEvent(verify, event, StringSelectionResponse.class);
     }
 
     @Override
     public void onEntitySelectInteraction(EntitySelectInteractionEvent event) {
-
+        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> {
+            try {
+                EntitySelectionResponse a = (EntitySelectionResponse) givenAnnotation;
+                EntitySelectInteractionEvent e = (EntitySelectInteractionEvent) givenEvent;
+                // TODO implement
+                return false;
+            } catch (Exception e) {
+                return false;
+            }
+        };
+        handleEvent(verify, event, EntitySelectionResponse.class);
     }
 }
