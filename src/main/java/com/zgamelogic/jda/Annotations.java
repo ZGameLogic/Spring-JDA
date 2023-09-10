@@ -135,45 +135,6 @@ public abstract class Annotations {
     }
 
     /**
-     * Annotation for MessageReceivedEvent
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface MessageResponse {
-        /**
-         * @return A trigger to call this method if the message starts with this string.
-         */
-        String trigger() default "";
-
-        /**
-         * Default value is false.
-         * @return false if the message is allowed from a guild or from a private message
-         */
-        boolean onlyFromGuild() default false;
-    }
-
-    /**
-     * Annotation for onGenericMessageReaction
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface EmoteResponse {
-        /**
-         * Name of the reaction emoji
-         * @return Name of the reaction emoji
-         */
-        String value();
-
-        /**
-         * Boolean to trigger method if the reaction is being added.
-         * True if method should trigger on reaction add.
-         * False if the method should trigger on reaction remove.
-         * @return if this method should be called if the reaction is added
-         */
-        boolean isAdding();
-    }
-
-    /**
      * Annotation for ModalInteractionEvent
      * Here is a code example of a modal response
      * <pre>{@code
@@ -323,13 +284,6 @@ public abstract class Annotations {
          */
         String selectedOptionValue() default "";
     }
-
-    /**
-     * Annotate any method you want to get skipped if the event is from a bot
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface NoBot{}
 
     /**
      * Annotate any method you want this to be called when the onReady event is generated

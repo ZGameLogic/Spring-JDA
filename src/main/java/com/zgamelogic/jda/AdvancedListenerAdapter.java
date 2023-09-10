@@ -41,23 +41,16 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
         if(!methodMap.containsKey(annotation) || methodMap.get(annotation).isEmpty()) return;
         methodMap.get(annotation).forEach(method -> {
             try {
-                if (verify.verify(annotation, event, method.isAnnotationPresent(NoBot.class))) {
-                    try {
-                        method.setAccessible(true);
-                        method.invoke(this, event);
-                    } catch (Exception e) {
-                        log.error("Unable to auto run method: " + method.getName(), e);
-                    }
-                }
-            } catch (Exception e1){
-                log.error("Probably some casting going bad", e1);
+                method.setAccessible(true);
+                method.invoke(this, event);
+            } catch (Exception e) {
+                log.error("Unable to auto run method: " + method.getName(), e);
             }
         });
     }
 
     private void mapMethods(){
         LinkedList<Class> allowedAnnotations = new LinkedList<>(Arrays.asList(Annotations.class.getDeclaredClasses()));
-        allowedAnnotations.remove(NoBot.class);
         for(Method method: getClass().getDeclaredMethods()){
             for(Annotation a: method.getAnnotations()){
                 if(allowedAnnotations.contains(a.annotationType())){
@@ -81,9 +74,9 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
                 SlashResponse a = (SlashResponse) givenAnnotation;
                 SlashCommandInteractionEvent e = (SlashCommandInteractionEvent) givenEvent;
                 if(a.subCommandName().isEmpty()){
-                    return a.value().equals(e.getCommandId());
+                    return a.value().equals(e.getName());
                 } else {
-                    return a.value().equals(e.getCommandId()) && a.subCommandName().equals(e.getSubcommandName());
+                    return a.value().equals(e.getName()) && a.subCommandName().equals(e.getSubcommandName());
                 }
             } catch (Exception e) {
                 return false;
@@ -98,8 +91,7 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
             try {
                 UserInteractionResponse a = (UserInteractionResponse) givenAnnotation;
                 UserContextInteractionEvent e = (UserContextInteractionEvent) givenEvent;
-                // TODO implement
-                return false;
+                return a.value().equals(e.getName());
             } catch (Exception e) {
                 return false;
             }
@@ -113,8 +105,7 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
             try {
                 MessageInteractionResponse a = (MessageInteractionResponse) givenAnnotation;
                 MessageContextInteractionEvent e = (MessageContextInteractionEvent) givenEvent;
-                // TODO implement
-                return false;
+                return a.value().equals(e.getName());
             } catch (Exception e) {
                 return false;
             }
@@ -128,8 +119,7 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
             try {
                 ButtonResponse a = (ButtonResponse) givenAnnotation;
                 ButtonInteractionEvent e = (ButtonInteractionEvent) givenEvent;
-                // TODO implement
-                return false;
+                return a.value().equals(e.getButton().getId());
             } catch (Exception e) {
                 return false;
             }
@@ -143,8 +133,11 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
             try {
                 AutoCompleteResponse a = (AutoCompleteResponse) givenAnnotation;
                 CommandAutoCompleteInteractionEvent e = (CommandAutoCompleteInteractionEvent) givenEvent;
-                // TODO implement
-                return false;
+                boolean output =  a.slashCommandId().equals(e.getName()) && a.focusedOption().equals(e.getFocusedOption().getName());
+                if(!a.slashSubCommandId().isEmpty()){
+                    output &= a.slashSubCommandId().equals(e.getSubcommandName());
+                }
+                return output;
             } catch (Exception e) {
                 return false;
             }
@@ -158,8 +151,7 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
             try {
                 ModalResponse a = (ModalResponse) givenAnnotation;
                 ModalInteractionEvent e = (ModalInteractionEvent) givenEvent;
-                // TODO implement
-                return false;
+                return a.value().equals(e.getModalId());
             } catch (Exception e) {
                 return false;
             }
@@ -173,8 +165,11 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
             try {
                 StringSelectionResponse a = (StringSelectionResponse) givenAnnotation;
                 StringSelectInteractionEvent e = (StringSelectInteractionEvent) givenEvent;
-                // TODO implement
-                return false;
+                if(a.selectedOptionValue().isEmpty()){
+                    return a.value().equals(e.getSelectMenu().getId());
+                } else {
+                    return a.value().equals(e.getSelectMenu().getId()) && a.selectedOptionValue().equals(event.getInteraction().getSelectedOptions().get(0).getValue());
+                }
             } catch (Exception e) {
                 return false;
             }
@@ -188,8 +183,7 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
             try {
                 EntitySelectionResponse a = (EntitySelectionResponse) givenAnnotation;
                 EntitySelectInteractionEvent e = (EntitySelectInteractionEvent) givenEvent;
-                // TODO implement
-                return false;
+                return a.value().equals(e.getSelectMenu().getId());
             } catch (Exception e) {
                 return false;
             }

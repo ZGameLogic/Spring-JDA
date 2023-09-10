@@ -19,6 +19,13 @@ class AdvancedListenerAdapterTest {
 
     @Test
     void registerTest() {
+        assertEquals(1, listener.getMethodMap().get(Annotations.AutoCompleteResponse.class).size());
+        assertEquals(1, listener.getMethodMap().get(Annotations.UserInteractionResponse.class).size());
+        assertEquals(1, listener.getMethodMap().get(Annotations.MessageInteractionResponse.class).size());
+        assertEquals(1, listener.getMethodMap().get(Annotations.ButtonResponse.class).size());
+        assertEquals(1, listener.getMethodMap().get(Annotations.ModalResponse.class).size());
         assertEquals(1, listener.getMethodMap().get(Annotations.SlashResponse.class).size());
+        assertEquals(1, listener.getMethodMap().get(Annotations.EntitySelectionResponse.class).size());
+        assertEquals(1, listener.getMethodMap().get(Annotations.StringSelectionResponse.class).size());
     }
 }
