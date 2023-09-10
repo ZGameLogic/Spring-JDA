@@ -6,13 +6,22 @@
 
     <groupId>com.zgamelogic</groupId>
     <artifactId>Spring-JDA</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ftp</artifactId>
+            </extension>
+        </extensions>
+    </build>
 
     <repositories>
         <repository>
@@ -52,5 +61,10 @@
         </dependency>
     </dependencies>
 
-
+    <distributionManagement>
+        <repository>
+            <id>home</id>
+            <url>ftp://localhost/maven2</url>
+        </repository>
+    </distributionManagement>
 </project>
