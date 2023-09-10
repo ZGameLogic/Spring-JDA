@@ -30,7 +30,6 @@ public abstract class Annotations {
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
-    @Repeatable(AutoCompleteResponses.class)
     public @interface AutoCompleteResponse {
         /**
          * Slash command ID
@@ -46,14 +45,6 @@ public abstract class Annotations {
 
         String slashSubCommandId() default "";
     }
-
-    /**
-     * Annotation to allow for multiple Auto complete responses on one method
-     * @see AutoCompleteResponse
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface AutoCompleteResponses { AutoCompleteResponse[] value(); }
 
     /**
      * Annotation for UserContextInteractionEvent
@@ -76,7 +67,6 @@ public abstract class Annotations {
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
-    @Repeatable(UserInteractionResponses.class)
     public @interface UserInteractionResponse {
         /**
          * ID of the interaction
@@ -84,14 +74,6 @@ public abstract class Annotations {
          */
         String value();
     }
-
-    /**
-     * Annotation to allow for multiple User interaction responses to be put on one method
-     * @see UserInteractionResponse
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface UserInteractionResponses { UserInteractionResponse[] value(); }
 
     /**
      * Annotation for MessageContextInteractionEvent
@@ -114,7 +96,6 @@ public abstract class Annotations {
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
-    @Repeatable(MessageInteractionResponses.class)
     public @interface MessageInteractionResponse {
 
         /**
@@ -123,14 +104,6 @@ public abstract class Annotations {
          */
         String value();
     }
-
-    /**
-     * Annotation to allow for multiple Message interaction responses on one method
-     * @see MessageInteractionResponse
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface MessageInteractionResponses{ MessageInteractionResponse[] value(); }
 
     /**
      * Annotation for ButtonInteractionEvent
@@ -153,7 +126,6 @@ public abstract class Annotations {
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
-    @Repeatable(ButtonResponses.class)
     public @interface ButtonResponse {
         /**
          * ID of the button that was pressed
@@ -163,19 +135,10 @@ public abstract class Annotations {
     }
 
     /**
-     * Annotation to allow for multiple Button responses on one method
-     * @see ButtonResponse
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    protected @interface ButtonResponses{ ButtonResponse[] value(); }
-
-    /**
      * Annotation for MessageReceivedEvent
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
-    @Repeatable(MessageResponses.class)
     public @interface MessageResponse {
         /**
          * @return A trigger to call this method if the message starts with this string.
@@ -190,21 +153,10 @@ public abstract class Annotations {
     }
 
     /**
-     * Annotation to allow for multiple message responses on one method
-     * @see MessageResponse
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface MessageResponses {
-        MessageResponse[] value();
-    }
-
-    /**
      * Annotation for onGenericMessageReaction
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
-    @Repeatable(EmoteResponses.class)
     public @interface EmoteResponse {
         /**
          * Name of the reaction emoji
@@ -220,14 +172,6 @@ public abstract class Annotations {
          */
         boolean isAdding();
     }
-
-    /**
-     * Annotation to allow for multiple Button responses on one method
-     * @see EmoteResponse
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface EmoteResponses{ EmoteResponse[] value(); }
 
     /**
      * Annotation for ModalInteractionEvent
@@ -252,7 +196,6 @@ public abstract class Annotations {
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
-    @Repeatable(ModalResponses.class)
     public @interface ModalResponse {
         /**
          * Name of the modal
@@ -260,14 +203,6 @@ public abstract class Annotations {
          */
         String value();
     }
-
-    /**
-     * Annotation to allow for multiple modal responses on one method
-     * @see ModalResponse
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface ModalResponses{ ModalResponse[] value(); }
 
     /**
      * Annotation for SlashCommandInteractionEvent.
@@ -302,7 +237,6 @@ public abstract class Annotations {
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
-    @Repeatable(SlashResponses.class)
     public @interface SlashResponse {
         /**
          * Command name
@@ -316,14 +250,6 @@ public abstract class Annotations {
          */
         String subCommandName() default "";
     }
-
-    /**
-     * Annotation to allow for multiple Slash responses on one method
-     * @see SlashResponse
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface SlashResponses { SlashResponse[] value(); }
 
     /**
      * Annotation for EntitySelectInteractionEvent
@@ -344,7 +270,6 @@ public abstract class Annotations {
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
-    @Repeatable(EntitySelectionResponses.class)
     public @interface EntitySelectionResponse {
         /**
          * Menu ID for the menu
@@ -352,14 +277,6 @@ public abstract class Annotations {
          */
         String value();
     }
-
-    /**
-     * Annotation to allow for multiple Entity selection responses on one method
-     * @see EntitySelectionResponse
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface EntitySelectionResponses{ EntitySelectionResponse[] value(); }
 
     /**
      * Annotation for StringSelectInteractionEvent
@@ -393,7 +310,6 @@ public abstract class Annotations {
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
-    @Repeatable(StringSelectionResponses.class)
     public @interface StringSelectionResponse {
         /**
          * Menu id for the menu
@@ -409,17 +325,16 @@ public abstract class Annotations {
     }
 
     /**
-     * Annotation to allow for multiple Entity selection responses on one method
-     * @see StringSelectionResponse
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface StringSelectionResponses{ StringSelectionResponse[] value(); }
-
-    /**
      * Annotate any method you want to get skipped if the event is from a bot
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
     public @interface NoBot{}
+
+    /**
+     * Annotate any method you want this to be called when the onReady event is generated
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    public @interface OnReady{}
 }

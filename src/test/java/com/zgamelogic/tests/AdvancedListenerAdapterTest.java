@@ -19,7 +19,6 @@ class AdvancedListenerAdapterTest {
 
     @Test
     void registerTest() {
-        System.out.println(listener.getMethodMap());
         assertEquals(1, listener.getMethodMap().get(Annotations.SlashResponse.class).size());
     }
 }

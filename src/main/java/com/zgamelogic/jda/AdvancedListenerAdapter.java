@@ -11,10 +11,12 @@ import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEven
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.EntitySelectInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.StringSelectInteractionEvent;
+import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.Interaction;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -31,20 +33,17 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
         for(Class c: Annotations.class.getDeclaredClasses()){
             methodMap.put(c, new LinkedList<>());
         }
-
         log.info("Registering annotated methods for class: " + this.getClass().getName());
-        for(Method method: this.getClass().getDeclaredMethods()){
-            log.info("\t\t" + method.getName());
-            // TODO add methods to the map
-        }
+        mapMethods();
     }
 
-    private void handleEvent(EventVerify verify, Event event, Object annotation){
-        methodMap.get(annotation.getClass()).forEach(method -> {
+    private void handleEvent(EventVerify verify, Event event, Class annotation){
+        if(!methodMap.containsKey(annotation) || methodMap.get(annotation).isEmpty()) return;
+        methodMap.get(annotation).forEach(method -> {
             try {
-                if ((method.getAnnotationsByType(NoBot.class).length > 0 && !((Interaction) event).getUser().isBot())
-                        && verify.verify(annotation, event)) {
+                if (verify.verify(annotation, event, method.isAnnotationPresent(NoBot.class))) {
                     try {
+                        method.setAccessible(true);
                         method.invoke(this, event);
                     } catch (Exception e) {
                         log.error("Unable to auto run method: " + method.getName(), e);
@@ -56,14 +55,36 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
         });
     }
 
+    private void mapMethods(){
+        LinkedList<Class> allowedAnnotations = new LinkedList<>(Arrays.asList(Annotations.class.getDeclaredClasses()));
+        allowedAnnotations.remove(NoBot.class);
+        for(Method method: getClass().getDeclaredMethods()){
+            for(Annotation a: method.getAnnotations()){
+                if(allowedAnnotations.contains(a.annotationType())){
+                    methodMap.get(a.annotationType()).add(method);
+                    log.info(method.getName() + ": " + a.annotationType().getSimpleName() + " registered");
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onReady(ReadyEvent event) {
+        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> true;
+        handleEvent(verify, event, OnReady.class);
+    }
+
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        EventVerify verify = (givenAnnotation, givenEvent) -> {
+        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> {
             try {
                 SlashResponse a = (SlashResponse) givenAnnotation;
-                SlashCommandInteractionEvent e = event;
-                // TODO finish verify
-                return true;
+                SlashCommandInteractionEvent e = (SlashCommandInteractionEvent) givenEvent;
+                if(a.subCommandName().isEmpty()){
+                    return a.value().equals(e.getCommandId());
+                } else {
+                    return a.value().equals(e.getCommandId()) && a.subCommandName().equals(e.getSubcommandName());
+                }
             } catch (Exception e) {
                 return false;
             }
