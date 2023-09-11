@@ -41,8 +41,10 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
         if(!methodMap.containsKey(annotation) || methodMap.get(annotation).isEmpty()) return;
         methodMap.get(annotation).forEach(method -> {
             try {
-                method.setAccessible(true);
-                method.invoke(this, event);
+                if(verify.verify(method.getAnnotation(annotation), event)) {
+                    method.setAccessible(true);
+                    method.invoke(this, event);
+                }
             } catch (Exception e) {
                 log.error("Unable to auto run method: " + method.getName(), e);
             }
@@ -63,13 +65,13 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
 
     @Override
     public void onReady(ReadyEvent event) {
-        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> true;
+        EventVerify verify = (givenAnnotation, givenEvent) -> true;
         handleEvent(verify, event, OnReady.class);
     }
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> {
+        EventVerify verify = (givenAnnotation, givenEvent) -> {
             try {
                 SlashResponse a = (SlashResponse) givenAnnotation;
                 SlashCommandInteractionEvent e = (SlashCommandInteractionEvent) givenEvent;
@@ -87,7 +89,7 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
 
     @Override
     public void onUserContextInteraction(UserContextInteractionEvent event) {
-        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> {
+        EventVerify verify = (givenAnnotation, givenEvent) -> {
             try {
                 UserInteractionResponse a = (UserInteractionResponse) givenAnnotation;
                 UserContextInteractionEvent e = (UserContextInteractionEvent) givenEvent;
@@ -101,7 +103,7 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
 
     @Override
     public void onMessageContextInteraction(MessageContextInteractionEvent event) {
-        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> {
+        EventVerify verify = (givenAnnotation, givenEvent) -> {
             try {
                 MessageInteractionResponse a = (MessageInteractionResponse) givenAnnotation;
                 MessageContextInteractionEvent e = (MessageContextInteractionEvent) givenEvent;
@@ -115,7 +117,7 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
 
     @Override
     public void onButtonInteraction(ButtonInteractionEvent event) {
-        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> {
+        EventVerify verify = (givenAnnotation, givenEvent) -> {
             try {
                 ButtonResponse a = (ButtonResponse) givenAnnotation;
                 ButtonInteractionEvent e = (ButtonInteractionEvent) givenEvent;
@@ -129,7 +131,7 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
 
     @Override
     public void onCommandAutoCompleteInteraction(CommandAutoCompleteInteractionEvent event) {
-        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> {
+        EventVerify verify = (givenAnnotation, givenEvent) -> {
             try {
                 AutoCompleteResponse a = (AutoCompleteResponse) givenAnnotation;
                 CommandAutoCompleteInteractionEvent e = (CommandAutoCompleteInteractionEvent) givenEvent;
@@ -147,7 +149,7 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
 
     @Override
     public void onModalInteraction(ModalInteractionEvent event) {
-        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> {
+        EventVerify verify = (givenAnnotation, givenEvent) -> {
             try {
                 ModalResponse a = (ModalResponse) givenAnnotation;
                 ModalInteractionEvent e = (ModalInteractionEvent) givenEvent;
@@ -161,7 +163,7 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
 
     @Override
     public void onStringSelectInteraction(StringSelectInteractionEvent event) {
-        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> {
+        EventVerify verify = (givenAnnotation, givenEvent) -> {
             try {
                 StringSelectionResponse a = (StringSelectionResponse) givenAnnotation;
                 StringSelectInteractionEvent e = (StringSelectInteractionEvent) givenEvent;
@@ -179,7 +181,7 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
 
     @Override
     public void onEntitySelectInteraction(EntitySelectInteractionEvent event) {
-        EventVerify verify = (givenAnnotation, givenEvent, noBot) -> {
+        EventVerify verify = (givenAnnotation, givenEvent) -> {
             try {
                 EntitySelectionResponse a = (EntitySelectionResponse) givenAnnotation;
                 EntitySelectInteractionEvent e = (EntitySelectInteractionEvent) givenEvent;

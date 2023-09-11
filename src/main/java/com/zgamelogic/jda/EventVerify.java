@@ -8,5 +8,5 @@ public interface EventVerify {
      * @param event The event object
      * @return True if we should run the method or not
      */
-    boolean verify(Object annotation, Object event, boolean noBot);
+    boolean verify(Object annotation, Object event);
 }
