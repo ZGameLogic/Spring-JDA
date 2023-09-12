@@ -12,12 +12,12 @@ public abstract class Annotations {
      * }</pre>
      * and here is an example of the method that will get called
      * <pre>{@code
-     * {@literal @}AutoCompleteResponse(slashCommandId = "fruit", focusedOption = "name")
+     * @AutoCompleteResponse(slashCommandId = "fruit", focusedOption = "name")
      * private void autocompleteExample(CommandAutoCompleteInteractionEvent event){
      *     String[] words = new String[]{"apple", "apricot", "banana", "cherry", "coconut", "cranberry"};
-     *     List$&#123;Command.Choice$&#125; options = Stream.of(words)
-     *             .filter(word -$&#125; word.startsWith(event.getFocusedOption().getValue())) // only display words that start with the user's current input
-     *             .map(word -$&#125; new Command.Choice(word, word)) // map the words to choices
+     *     List<Command.Choice> options = Stream.of(words)
+     *             .filter(word -> word.startsWith(event.getFocusedOption().getValue())) // only display words that start with the user's current input
+     *             .map(word -> new Command.Choice(word, word)) // map the words to choices
      *             .collect(Collectors.toList());
      *     event.replyChoices(options).queue();
      * }
@@ -54,7 +54,7 @@ public abstract class Annotations {
      * }</pre>
      * and here is a code example of the method that will get called when a user does this interaction
      * <pre>{@code
-     * {@literal @}UserInteractionResponse("test")
+     * @UserInteractionResponse("test")
      * private void userInteractionExample(UserContextInteractionEvent event){
      *     // TODO respond to event
      * }
@@ -83,7 +83,7 @@ public abstract class Annotations {
      * }</pre>
      * and here is a code example of the method that will get called when a user does this interaction
      * <pre>{@code
-     * {@literal @}MessageInteractionResponse("test")
+     * @MessageInteractionResponse("test")
      * private void messageInteractionExample(MessageContextInteractionEvent event){
      *     // TODO respond to event
      * }
@@ -113,7 +113,7 @@ public abstract class Annotations {
      * }</pre>
      * and here is a code example of the method that will get called when a user hits that button
      * <pre>{@code
-     * {@literal @}ButtonResponse("example_button")
+     * @ButtonResponse("example_button")
      * private void exampleButtonResponse(ButtonInteractionEvent event){
      *     // TODO respond to event
      * }
@@ -144,7 +144,7 @@ public abstract class Annotations {
      * }</pre>
      * and here is a code example of the method that will get called when a user submits that modal
      * <pre>{@code
-     * {@literal @}ModalResponse("example_modal")
+     * @ModalResponse("example_modal")
      * private void exampleModalResponse(ModalInteractionEvent event){
      *    // TODO respond to event
      * }
@@ -173,7 +173,7 @@ public abstract class Annotations {
      * }</pre>
      * and here is a code example of the method that will get called when a user triggers that command
      * <pre>{@code
-     * {@literal @}SlashResponse("test")
+     * @SlashResponse("test")
      * private void testMethod(SlashCommandInteractionEvent event){
      *     // TODO respond to event
      * }
@@ -185,7 +185,7 @@ public abstract class Annotations {
      * }</pre>
      * and here is a code example of the method that will get called when a user triggers that command
      * <pre>{@code
-     * {@literal @}SlashResponse(value = "test", subCommandName = "sub")
+     * @SlashResponse(value = "test", subCommandName = "sub")
      * private void testMethodSub(SlashCommandInteractionEvent event){
      *     // TODO respond to event
      * }
@@ -219,7 +219,7 @@ public abstract class Annotations {
      *   EntitySelectMenu.create("test_selection", EntitySelectMenu.SelectTarget.USER).setMinValues(1).setMaxValues(25).build();
      * }</pre>
      * and here is a code example of the method that will get called when a user triggers that entity selection
-     * {@literal @}EntitySelectionResponse("test_selection")
+     * @EntitySelectionResponse("test_selection")
      * private void entitySelRes(EntitySelectInteractionEvent event){
      *     // TODO respond to event
      * }
@@ -251,14 +251,14 @@ public abstract class Annotations {
      * }</pre>
      * and here is a code example of the methods that will get called when a user triggers that string selection
      * <pre>{@code
-     * {@literal @}StringSelectionResponse("food_selection")
+     * @StringSelectionResponse("food_selection")
      * private void foodSelection(StringSelectInteractionEvent event){
      *     // TODO respond to event
      * }
      * }</pre>
      * You can also annotate your methods with the exact option that got picked by doing something like this
      * <pre>{@code
-     * {@literal @}StringSelectionResponse(value = "food_selection", selectedOptionValue = "banana")
+     * @StringSelectionResponse(value = "food_selection", selectedOptionValue = "banana")
      * private void foodSelectionBanana(StringSelectInteractionEvent event){
      *     // TODO respond to event
      * }
@@ -290,5 +290,5 @@ public abstract class Annotations {
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
-    public @interface OnReady{}
+    public @interface OnReady {}
 }
