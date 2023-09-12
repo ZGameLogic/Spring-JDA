@@ -23,20 +23,6 @@ import java.util.LinkedList;
 
 import static com.zgamelogic.jda.Annotations.*;
 
-/**
- * An advanced version of the ListenerAdapter class.
- * Highly annotative allowing automatic method calling.
- * @see AutoCompleteResponse
- * @see UserInteractionResponse
- * @see MessageInteractionResponse
- * @see ButtonResponse
- * @see ModalResponse
- * @see SlashResponse
- * @see EntitySelectionResponse
- * @see StringSelectionResponse
- * @see OnReady
- * @author Ben Shabowski
- */
 @Slf4j
 @Getter
 public abstract class AdvancedListenerAdapter extends ListenerAdapter {
