@@ -26,9 +26,9 @@ public class JDASpringApplication extends SpringApplication {
      * documentation for details. The instance can be customized before calling
      * {@link #run(String...)}.
      *
+     * @param bot bot builder for JDA bot
      * @param primarySources the primary bean sources
      * @see #run(Class, String[])
-     * @see #SpringApplication(ResourceLoader, Class...)
      * @see #setSources(Set)
      */
     public JDASpringApplication(JDABuilder bot, Class<?>... primarySources) {
