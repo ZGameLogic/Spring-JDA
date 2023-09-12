@@ -72,11 +72,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <distributionManagement>
-        <repository>
-            <id>home</id>
-            <url>ftp://localhost/maven2</url>
-        </repository>
-    </distributionManagement>
 </project>
