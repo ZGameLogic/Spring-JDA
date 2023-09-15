@@ -6,11 +6,11 @@
 
     <groupId>com.zgamelogic</groupId>
     <artifactId>Spring-JDA</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>20</maven.compiler.source>
+        <maven.compiler.target>20</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -46,7 +46,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.4</version>
+        <version>3.1.2</version>
     </parent>
 
     <dependencies>
