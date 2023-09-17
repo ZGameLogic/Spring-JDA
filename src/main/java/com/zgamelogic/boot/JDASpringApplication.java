@@ -61,6 +61,7 @@ public class JDASpringApplication extends SpringApplication {
             bot.awaitReady();
             try {
                 bot.updateCommands().addCommands(globalCommands).queue();
+                log.info("Updated " + globalCommands.size() + " global commands");
             } catch (Exception e){
                 log.error("Unable to update global slash commands", e);
             }
