@@ -11,7 +11,7 @@
     <distributionManagement>
         <repository>
             <id>com.zgamelogic</id>
-            <url>file:C:\Users\Ben\Desktop\services\Ben-Website\maven</url>
+            <url>file:C:\Users\Ben\Desktop\services\API\maven</url>
         </repository>
     </distributionManagement>
 
