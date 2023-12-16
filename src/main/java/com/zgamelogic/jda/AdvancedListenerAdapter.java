@@ -13,7 +13,6 @@ import net.dv8tion.jda.api.events.interaction.component.EntitySelectInteractionE
 import net.dv8tion.jda.api.events.interaction.component.StringSelectInteractionEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -42,10 +41,8 @@ import static com.zgamelogic.jda.Annotations.*;
 public abstract class AdvancedListenerAdapter extends ListenerAdapter {
 
     private final HashMap<Class, LinkedList<Method>> methodMap;
-    private final LinkedList<CommandData> commands;
 
     public AdvancedListenerAdapter(){
-        commands = new LinkedList<>();
         methodMap = new HashMap<>();
         for(Class c: Annotations.class.getDeclaredClasses()){
             methodMap.put(c, new LinkedList<>());
@@ -88,6 +85,7 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+        log.info("slash");
         EventVerify verify = (givenAnnotation, givenEvent) -> {
             try {
                 SlashResponse a = (SlashResponse) givenAnnotation;
