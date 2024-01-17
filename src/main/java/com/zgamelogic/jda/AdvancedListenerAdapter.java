@@ -3,6 +3,7 @@ package com.zgamelogic.jda;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.events.Event;
+import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.MessageContextInteractionEvent;
@@ -80,6 +81,12 @@ public abstract class AdvancedListenerAdapter extends ListenerAdapter {
     public void onReady(ReadyEvent event) {
         EventVerify verify = (givenAnnotation, givenEvent) -> true;
         handleEvent(verify, event, OnReady.class);
+    }
+
+    @Override
+    public void onGuildJoin(GuildJoinEvent event) {
+        EventVerify verify = (givenAnnotation, givenEvent) -> true;
+        handleEvent(verify, event, OnGuildJoin.class);
     }
 
     @Override
