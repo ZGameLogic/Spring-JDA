@@ -291,4 +291,11 @@ public abstract class Annotations {
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
     public @interface OnReady{}
+
+    /**
+     * Annotate any method you want this to be called when the onGuildJoin event is generated
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    public @interface OnGuildJoin{}
 }
