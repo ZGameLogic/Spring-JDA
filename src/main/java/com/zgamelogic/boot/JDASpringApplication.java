@@ -3,9 +3,11 @@ package com.zgamelogic.boot;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+
 import java.util.Set;
 
 @Slf4j
@@ -40,7 +42,11 @@ public class JDASpringApplication extends SpringApplication {
     public ConfigurableApplicationContext run(String... args) {
         ConfigurableApplicationContext cac = super.run(args);
         log.info("Initializing JDA Bot");
-
+        log.info("Adding manual advance listener adapters...");
+        cac.getBeansOfType(ListenerAdapter.class).values().forEach(ala -> {
+            botBuilder.addEventListeners(ala);
+            log.info(ala.getClass().getName() + " added.");
+        });
         try {
             JDA bot = botBuilder.build();
             bot.awaitReady();
