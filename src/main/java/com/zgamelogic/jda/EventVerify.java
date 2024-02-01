@@ -1,5 +1,9 @@
 package com.zgamelogic.jda;
 
+/**
+ * Interface for verify events
+ * @author Ben Shabowski
+ */
 public interface EventVerify {
 
     /**

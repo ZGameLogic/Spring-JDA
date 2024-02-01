@@ -10,11 +10,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: build project
-        run: mvn clean install
   Deploy:
     runs-on: self-hosted
     needs: Build
     steps:
-      - name: Deploy to maven repository
-        run: mvn clean install javadoc:jar deploy:deploy
+      - name: Deploy to git maven repository
+        run: mvn clean javadoc:jar deploy
