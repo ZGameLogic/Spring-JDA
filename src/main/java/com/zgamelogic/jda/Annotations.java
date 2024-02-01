@@ -2,6 +2,10 @@ package com.zgamelogic.jda;
 
 import java.lang.annotation.*;
 
+/**
+ * Abstract class to hold all the custom annotations
+ * @author Ben Shabowski
+ */
 public abstract class Annotations {
     /**
      * Annotation for CommandAutoCompleteInteractionEvent
@@ -43,6 +47,10 @@ public abstract class Annotations {
          */
         String focusedOption();
 
+        /**
+         * Use this if there is a subcommand
+         * @return subCommandId
+         */
         String slashSubCommandId() default "";
     }
 

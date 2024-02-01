@@ -10,6 +10,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.Set;
 
+/**
+ * Custom spring launch class to also start up a JDA bot
+ * @author Ben Shabowski
+ */
 @Slf4j
 public class JDASpringApplication extends SpringApplication {
 
