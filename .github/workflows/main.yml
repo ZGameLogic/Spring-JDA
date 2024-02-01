@@ -5,14 +5,12 @@ on:
     branches: [master]
 
 jobs:
-  Build:
-    runs-on: self-hosted
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
   Deploy:
     runs-on: self-hosted
     needs: Build
     steps:
+      - uses: actions/checkout@v3
       - name: Deploy to git maven repository
-        run: mvn clean javadoc:jar deploy
+        run: mvn --batch-mode clean javadoc:jar deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.PACKAGE_TOKEN }}
