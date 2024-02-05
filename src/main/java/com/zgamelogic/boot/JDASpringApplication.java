@@ -8,6 +8,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Set;
 
 /**
@@ -47,6 +51,8 @@ public class JDASpringApplication extends SpringApplication {
         ConfigurableApplicationContext cac = super.run(args);
         log.info("Initializing JDA Bot");
         log.info("Adding manual advance listener adapters...");
+        // TODO create new advanced listener adapter to hold and call methods based off of the object and the methods
+//        HashMap<Annotation, LinkedList<HashMap<Object, Method>>> yup;
         cac.getBeansOfType(ListenerAdapter.class).values().forEach(ala -> {
             botBuilder.addEventListeners(ala);
             log.info(ala.getClass().getName() + " added.");

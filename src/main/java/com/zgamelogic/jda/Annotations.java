@@ -306,4 +306,9 @@ public abstract class Annotations {
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
     public @interface OnGuildJoin{}
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.MODULE)
+    public @interface DiscordController{}
+
 }
